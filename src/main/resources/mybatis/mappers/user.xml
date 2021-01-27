@@ -13,7 +13,7 @@
 		       #{gender})
 	]]>
 	</insert>
-
+	
 	<!-- 회원정보 가져오기(id password) 로그인 -->  <!-- 2번째 com.javaex.vo.UserVo는 set으로 담을 예정 -->
 	<select id="selectUser" parameterType="com.javaex.vo.UserVo" resultType="com.javaex.vo.UserVo">   <!-- parameterType 받아서 만들어야 하므로.. -->
 	<![CDATA[
