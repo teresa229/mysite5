@@ -34,4 +34,31 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>webapp/assets/css/board.css</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/%EC%88%98%EC%97%85%EC%9E%90%EB%A3%8C/Servlet/mysite/assets/css/board.css</locationURI>
+		</link>
+		<link>
+			<name>webapp/assets/css/guestbook.css</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/%EC%88%98%EC%97%85%EC%9E%90%EB%A3%8C/Servlet/mysite/assets/css/guestbook.css</locationURI>
+		</link>
+		<link>
+			<name>webapp/assets/css/main.css</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/%EC%88%98%EC%97%85%EC%9E%90%EB%A3%8C/Servlet/mysite/assets/css/main.css</locationURI>
+		</link>
+		<link>
+			<name>webapp/assets/css/mysite.css</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/%EC%88%98%EC%97%85%EC%9E%90%EB%A3%8C/Servlet/mysite/assets/css/mysite.css</locationURI>
+		</link>
+		<link>
+			<name>webapp/assets/css/user.css</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/%EC%88%98%EC%97%85%EC%9E%90%EB%A3%8C/Servlet/mysite/assets/css/user.css</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>
