@@ -94,10 +94,11 @@ public class UserController {
 		System.out.println("/user/modifyForm");
 		/*
 		 * //세션영역에 있는 로그인 상태인 유저 no 가져오기 
-		 * step 1: 세션의 authUser 가져와 -> userVo에 담기 -
-		 * object에서 vo로 형변환 UserVo authVo = (UserVo)session.getAttribute("authUser");
+		 * step 1: 세션의 authUser 가져와 -> userVo에 담기 - object에서 vo로 형변환 
+		 * UserVo authVo = (UserVo)session.getAttribute("authUser");
 		 * 
-		 * step 2: getNo()로 no값을 가져온다. int no = authVo.getNo();
+		 * step 2: getNo()로 no값을 가져온다. 
+		 * int no = authVo.getNo();
 		 * System.out.println("no넣은 후"+authVo.toString()); //no넣은 후UserVo [no=23, id=null, password=null, name=김경아, gender=null]
 		 * //UserVo userVo = userDao.selectOne(no);
 		 */		
