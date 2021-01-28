@@ -24,18 +24,18 @@ public class UserDao {
 		//return sqlSession.insert("user.insert",userVo);
 	}
 	//로그인 : 회원정보 가져오기.. 결과물을 모를때는 일단 void
-	public UserVo selectUser(UserVo userVo) {
+	public UserVo selectUser(UserVo userVo) {      /* selectUser(UserVo userVo), selectOne(int no) //이름을 같게 적어주어도 괜찮다. select*/
 		System.out.println("[dao]:selectUser");
 		System.out.println("[dao]:selectUser" + userVo.toString());
 		
-		UserVo vo = sqlSession.selectOne("user.selectUser",userVo); //UserVo userVo하면 이름이 겹쳐지므로 UserVo vo 
+		UserVo vo = sqlSession.selectOne("user.selectUser",userVo);        //UserVo userVo하면 이름이 겹쳐지므로 UserVo vo 
 		System.out.println(vo.toString());
 		
 		return vo; 
 		//return sqlSession.selectOne("user.selectUser",userVo);
 	}
 	//회원 정보 가져오기 
-	public UserVo selectOne(int no) {
+	public UserVo selectUser(int no) {
 		System.out.println("[dao]:selectOne");
 		System.out.println(no);
 		
@@ -44,10 +44,14 @@ public class UserDao {
 	
 	
 	//회원정보 수정
-	public void modify(UserVo userVo) {
+	public int modify(UserVo userVo) {
 		System.out.println("[dao]:modify");
 		System.out.println("[dao]:modify" + userVo.toString()); //[dao]:modifyUserVo [no=23, id=null, password=1234, name=김경아 마지막, gender=female]
 		
-		sqlSession.update("user.update", userVo);
+		/*
+		 * int count = sqlSession.update("user.update", userVo); return count;
+		 */
+		
+		return sqlSession.update("user.update", userVo);
 	}
 }
