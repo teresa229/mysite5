@@ -21,7 +21,7 @@ public class GuestbookController {
 	private GuestService guestService;
 	
 	//리스트
-	@RequestMapping(value="list", method= {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="/list", method= {RequestMethod.GET, RequestMethod.POST})
 	public String list(Model model) {
 		System.out.println("/guestbook/list");
 		
@@ -42,7 +42,7 @@ public class GuestbookController {
 	}
 	
 	//삭제폼
-	@RequestMapping(value="deleteForm", method= {RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value="/deleteForm", method= {RequestMethod.GET,RequestMethod.POST})
 	public String deleteForm() {
 		System.out.println("/guestbook/deleteForm");
 		
@@ -50,7 +50,7 @@ public class GuestbookController {
 	}
 	
 	//삭제
-	@RequestMapping(value="delete", method= {RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value="/delete", method= {RequestMethod.GET,RequestMethod.POST})
 	public String delete(@ModelAttribute GuestVo guestVo) {
 		System.out.println("/guestbook/delete");
 		

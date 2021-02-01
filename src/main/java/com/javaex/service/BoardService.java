@@ -70,7 +70,6 @@ public class BoardService {
 		System.out.println("[service]:read");
 		
 		BoardVo bVo = boardDao.selectOne(no);
-		
 		return bVo;
 	}
 }

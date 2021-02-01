@@ -34,9 +34,7 @@ public class BoardDao {
 	public int delete(int no) {
 		System.out.println("[dao]:delete");
 		
-		int count = sqlSession.delete("board.delete", no);
-		System.out.println(count);
-		return count;
+		return sqlSession.delete("board.delete", no);
 	}
 	
 	//수정
@@ -44,9 +42,7 @@ public class BoardDao {
 		System.out.println("[dao]:update");
 		System.out.println("[dao]:update"+boardVo.toString());
 		
-		int count = sqlSession.update("board.update", boardVo);
-		System.out.println(count);
-		return count;
+		return sqlSession.update("board.update", boardVo);
 	}
 
 	//불러오기

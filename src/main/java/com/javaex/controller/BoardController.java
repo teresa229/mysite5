@@ -15,7 +15,7 @@ import com.javaex.service.BoardService;
 import com.javaex.vo.BoardVo;
 
 @Controller
-@RequestMapping(value="board")
+@RequestMapping(value="/board")
 public class BoardController {
 	
 	@Autowired

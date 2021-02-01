@@ -66,10 +66,10 @@
 							<textarea id="txt-content" name="content">${boardVo.content}</textarea>  <!-- 주의주의:name이 빠졌다. -->
 						</div>
 						
-						<a id="btn_cancel" href="/WEB-INF/views/board/list.jsp">취소</a>
+						<a id="btn_cancel" href="${pageContext.request.contextPath}/board/list">취소</a>
 						<button id="btn_modify" type="submit" >수정</button>
 
-						<input type="text" name="no" value="${boardVo.no}">   <!--주의:update조건 넘겨주기-->
+						<input type="hidden" name="no" value="${boardVo.no}">   <!--주의:update조건 넘겨주기-->
 					</form>
 	                <!-- //form -->
 				</div>

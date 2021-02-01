@@ -6,7 +6,7 @@
 <!-- 리스트 -->
 <select id="selectList" resultType="com.javaex.vo.BoardVo">
 <![CDATA[
-	select us.no,
+	select bo.no,
 	       us.name,
 	       bo.title,
 	       bo.content,
@@ -37,16 +37,18 @@
 
 <!-- 수정 -->
 <update id="update" parameterType="com.javaex.vo.BoardVo">
+<![CDATA[
 	update board
-    set title = #{title},
-        content = #{content}
-    where no= #{no}
+	set title = #{title},
+	    content = #{content}
+	where no = #{no}
+]]>
 </update>
 
 <!-- 1명 선택 -->
 <select id="selectOne" parameterType="int" resultType="com.javaex.vo.BoardVo">
 <![CDATA[
-	select us.no,
+	select bo.no,
 	       us.name,
 	       bo.title,
 	       bo.content,
@@ -54,7 +56,8 @@
 	       bo.reg_date,
 	       bo.user_no as userNo
 	from users us, board bo
-	where us.no = #{no}
+	where us.no = bo.user_no
+	and bo.no = #{no}
 ]]>
 </select>
 
