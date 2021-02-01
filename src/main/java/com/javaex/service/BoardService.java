@@ -59,12 +59,13 @@ public class BoardService {
 	//글보기
 	public BoardVo read(int no) {
 		System.out.println("[service]:read");
-			
-		BoardVo bVo = boardDao.selectOne(no);
-		System.out.println("[service]:read"+bVo.toString());
 		
 		boardDao.updateHit(no);
 		System.out.println(boardDao.toString());
+		
+		BoardVo bVo = boardDao.selectOne(no);
+		System.out.println("[service]:read"+bVo.toString());
+	
 		
 		return bVo;
 	}
