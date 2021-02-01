@@ -2,6 +2,8 @@ package com.javaex.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javaex.service.BoardService;
 import com.javaex.vo.BoardVo;
+import com.javaex.vo.UserVo;
 
 @Controller
 @RequestMapping(value="/board")
@@ -33,11 +36,17 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/write", method= {RequestMethod.GET, RequestMethod.POST})
-	public String write(@ModelAttribute BoardVo boardVo) {
+	public String write(@ModelAttribute BoardVo boardVo, HttpSession session) {
 		System.out.println("[controller]:write");
 		
+		//세션에서 사용자 정보 가져오기
+		UserVo authVo = (UserVo)session.getAttribute("authUser");
+		//Vo에 no담기
+		int no = authVo.getNo();
+		boardVo.setUserNo(no);   //setUserNo
+			
 		int count = boardService.write(boardVo);
-		
+
 		return "redirect:/board/list";
 	}
 	
@@ -82,7 +91,6 @@ public class BoardController {
 		System.out.println("[controller]:read");
 		
 		BoardVo boardVo = boardService.read(no);
-		
 		model.addAttribute("bVo", boardVo);
 		
 		return "board/read";

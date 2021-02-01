@@ -48,7 +48,9 @@ public class BoardDao {
 	//불러오기
 	public BoardVo selectOne(int no) {
 		System.out.println("[dao]:selectOne");
-		return sqlSession.selectOne("board.selectOne", no);
+		BoardVo boardVo = sqlSession.selectOne("board.selectOne", no);
+		System.out.println("[dao]:selectOne2" + boardVo.toString());
+		return boardVo;
 	}
 	
 	//조회수+1

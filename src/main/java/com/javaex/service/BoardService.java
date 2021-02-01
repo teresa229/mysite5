@@ -16,10 +16,7 @@ public class BoardService {
 
 	@Autowired
 	private BoardDao boardDao;
-	
-	@Autowired
-	private HttpSession session;
-	
+		
 	//리스트
 	public List<BoardVo> list() {
 		System.out.println("[service]:selectList");
@@ -33,12 +30,6 @@ public class BoardService {
 	//등록
 	public int write(BoardVo boardVo) {
 		System.out.println("[service]:write");
-		
-		//세션에서 사용자 정보 가져오기
-		UserVo authVo = (UserVo)session.getAttribute("authUser");
-		//Vo에 no담기
-		int no = authVo.getNo();
-		boardVo.setUserNo(no);   //setUserNo
 		
 		int count = boardDao.insert(boardVo);
 		System.out.println(count);
@@ -68,8 +59,13 @@ public class BoardService {
 	//글보기
 	public BoardVo read(int no) {
 		System.out.println("[service]:read");
-		
+			
 		BoardVo bVo = boardDao.selectOne(no);
+		System.out.println("[service]:read"+bVo.toString());
+		
+		boardDao.updateHit(no);
+		System.out.println(boardDao.toString());
+		
 		return bVo;
 	}
 }
