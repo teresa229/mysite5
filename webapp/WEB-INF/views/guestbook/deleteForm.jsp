@@ -47,7 +47,7 @@
 						</colgroup>
 						<tr>
 							<td>비밀번호</td>
-							<td><input type="password" name="pass"></td>
+							<td><input type="password" name="password"></td>     <!-- name="password" -->
 							<td class="text-left"><button type="submit">삭제</button></td>
 							<td><a href="${pageContext.request.contextPath}/guestbook/list">[방명록 리스트]</a></td>
 						</tr>

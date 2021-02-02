@@ -24,7 +24,6 @@ public class BoardDao {
 	//등록
 	public int insert(BoardVo boardVo) {
 		System.out.println("[dao]:insert");
-		System.out.println(boardVo.toString());
 		
 		int count =sqlSession.insert("board.insert", boardVo);
 		return count;
@@ -40,7 +39,6 @@ public class BoardDao {
 	//수정
 	public int update(BoardVo boardVo) {
 		System.out.println("[dao]:update");
-		System.out.println("[dao]:update"+boardVo.toString());
 		
 		return sqlSession.update("board.update", boardVo);
 	}
@@ -48,14 +46,15 @@ public class BoardDao {
 	//불러오기
 	public BoardVo selectOne(int no) {
 		System.out.println("[dao]:selectOne");
+		
 		BoardVo boardVo = sqlSession.selectOne("board.selectOne", no);
-		System.out.println("[dao]:selectOne2" + boardVo.toString());
 		return boardVo;
 	}
 	
 	//조회수+1
 	public int updateHit(int no) {
 		System.out.println("[dao]:updateHit");
+		
 		return sqlSession.update("board.updateHit", no);
 	}
 }

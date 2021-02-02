@@ -66,7 +66,6 @@ public class BoardService {
 		BoardVo bVo = boardDao.selectOne(no);
 		System.out.println("[service]:read"+bVo.toString());
 	
-		
 		return bVo;
 	}
 }
