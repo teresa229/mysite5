@@ -51,6 +51,12 @@
 							<textarea id="txt-content" name="content"></textarea>
 						</div>
 						
+						<c:if test="${rVo != null}">
+							<input type="hidden" name="groupNo" value="${rVo.groupNo}">
+							<input type="hidden" name="orderNo" value="${rVo.orderNo}">
+							<input type="hidden" name="depth" value="${rVo.depth}">
+						</c:if>
+						
 						<a id="btn_cancel" href="${pageContext.request.contextPath}/rboard/list">취소</a>
 						<button id="btn_add" type="submit" >등록</button>
 																		

@@ -58,18 +58,24 @@
 							</tr>
 						</thead>
 						<tbody>
-						<c:forEach items="${requestScope.boardList}" var="bvo">  <!-- boardList보다 vo 형태 권장 -->
+						<c:forEach items="${requestScope.boardList}" var="bvo">
 								<tr>
 									<td>${bvo.no}</td>
-									<td class="text-left"><a href="${pageContext.request.contextPath}/rboard/read?no=${bvo.no}">${bvo.title}</a></td>
+									<td class="text-left">
+										<a href="${pageContext.request.contextPath}/rboard/read?no=${bvo.no}">
+											<c:forEach var="item" begin="1" end="${bvo.depth}" step="1">
+													&nbsp;&nbsp;&nbsp;&nbsp;
+											</c:forEach>
+											${bvo.title}
+										</a></td>
 									<td>${bvo.name}</td>
 									<td>${bvo.hit}</td>
 									<td>${bvo.regDate}</td>
 									
 									<td>
-									<c:if test="${authUser.no == bvo.userNo}">  <!--주의: bvo-bList에 붙여준 이름 -->
-										<a href="${pageContext.request.contextPath}/rboard/remove?no=${bvo.no}">[삭제]</a>
-									</c:if>
+										<c:if test="${authUser.no == bvo.userNo}">  <!--주의: bvo-bList에 붙여준 이름 -->
+											<a href="${pageContext.request.contextPath}/rboard/remove?no=${bvo.no}">[삭제]</a>
+										</c:if>
 									</td>
 								</tr>
 						</c:forEach>

@@ -46,7 +46,7 @@ public class RboardController {
 		int no = authVo.getNo();
 		boardVo.setUserNo(no);   //setUserNo
 			
-		int count = rboardService.write(boardVo);
+		rboardService.write(boardVo);
 
 		return "redirect:/rboard/list";
 	}
@@ -61,10 +61,15 @@ public class RboardController {
 	
 	//댓글쓰기폼
 	@RequestMapping(value="/commentForm", method= {RequestMethod.GET, RequestMethod.POST})
-	public String commentForm() {
+	public String commentForm(@RequestParam("groupNo")int groupNo, Model model) {
 		System.out.println("rboard[controller]:commentForm");
 		
-		return "";
+		RboardVo boardVo = rboardService.read(groupNo);
+		System.out.println(boardVo.toString());
+		
+		model.addAttribute("rVo", boardVo);
+		
+		return "rboard/writeForm";
 	}
 	
 	//삭제

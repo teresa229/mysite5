@@ -11,7 +11,7 @@ public class RboardVo {
 	private int hit;        //조회수
 	private String regDate; //등록일
 	private int groupNo;    //그룹번호(부모)
-	private int rderNo;     //그룹내 글 순서
+	private int orderNo;     //그룹내 글 순서
 	private int depth;      //깊이
 	
 	//생성자
@@ -33,7 +33,7 @@ public class RboardVo {
 	}
 
 	public RboardVo(int no, int userNo, String title, String name, String content, int hit, String regDate, int groupNo,
-			int rderNo, int depth) {
+			int orderNo, int depth) {
 		super();
 		this.no = no;
 		this.userNo = userNo;
@@ -43,7 +43,7 @@ public class RboardVo {
 		this.hit = hit;
 		this.regDate = regDate;
 		this.groupNo = groupNo;
-		this.rderNo = rderNo;
+		this.orderNo = orderNo;
 		this.depth = depth;
 	}
 
@@ -113,12 +113,12 @@ public class RboardVo {
 		this.groupNo = groupNo;
 	}
 
-	public int getRderNo() {
-		return rderNo;
+	public int getOrderNo() {
+		return orderNo;
 	}
 
-	public void setRderNo(int rderNo) {
-		this.rderNo = rderNo;
+	public void setOderNo(int orderNo) {
+		this.orderNo = orderNo;
 	}
 
 	public int getDepth() {
@@ -132,7 +132,7 @@ public class RboardVo {
 	@Override
 	public String toString() {
 		return "BoardTVo [no=" + no + ", userNo=" + userNo + ", title=" + title + ", name=" + name + ", content="
-				+ content + ", hit=" + hit + ", regDate=" + regDate + ", groupNo=" + groupNo + ", rderNo=" + rderNo
+				+ content + ", hit=" + hit + ", regDate=" + regDate + ", groupNo=" + groupNo + ", orderNo=" + orderNo
 				+ ", depth=" + depth + "]";
 	}
 	

@@ -78,10 +78,10 @@
 						</c:if>
 						
 						<c:if test = "${authUser.no != null}">
-						    <a id="btn_modify" href="${pageContext.request.contextPath}/rboard/commentForm? ">댓글쓰기</a>
+						    <a id="btn_modify" href="${pageContext.request.contextPath}/rboard/commentForm?groupNo=${bVo.no}">댓글쓰기</a>
 						</c:if>
 						
-							<a id="btn_modify" href="${pageContext.request.contextPath}/rboard/list">목록</a>
+						<a id="btn_modify" href="${pageContext.request.contextPath}/rboard/list">목록</a>
 
 						
 	

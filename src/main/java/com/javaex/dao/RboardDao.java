@@ -57,4 +57,18 @@ public class RboardDao {
 		
 		return sqlSession.update("rboard.updateHit", no);
 	}
+	
+	//댓글게시판 댓글쓰기
+	public void commentInsert(RboardVo boardVo) {
+		System.out.println("rboard[dao]:commentInsert");
+		
+		sqlSession.insert("rboard.commentInsert", boardVo);
+	}
+	
+	//order_no증가시키기
+	public void orderNoUpdate(RboardVo boardVo) {
+		System.out.println("rboard[dao]:orderNoUpdate");
+		
+		sqlSession.update("rboard.orderNoUpdate", boardVo);
+	}
 }
