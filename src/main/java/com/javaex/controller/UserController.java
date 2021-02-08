@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javaex.dao.UserDao;
 import com.javaex.service.UserService;
@@ -148,5 +149,32 @@ public class UserController {
 		authVo.setName(userVo.getName());
 		
 		return "redirect:/";
+	}
+	//회원가입 - 아이디 체크
+	@RequestMapping(value="/idcheck",method = {RequestMethod.GET, RequestMethod.POST})
+	public String idcheck(@RequestParam("id") String id) {
+		System.out.println("/user/idcheck");
+		System.out.println("checkid="+id);
+		
+		String result= userService.idcheck(id);
+		System.out.println(result);
+				
+		/*
+		 *UserVo userVo = userService.idcheck(id);
+		  System.out.println("controller"+ userVo);
+		 * 
+		 * 
+		 * String result="";
+		 * 
+		 * if(userVo==null){ //사용할 수 있는 id 
+		 * result="can"; 
+		 * }else{ //사용할 수 없는 id
+		 * result="cant"; 
+		 * } 
+		 * System.out.println("redirect:/user/joinForm"+result);
+		 */
+		
+		//return "redirect:/user/joinForm?result="+result;
+		return "";
 	}
 }

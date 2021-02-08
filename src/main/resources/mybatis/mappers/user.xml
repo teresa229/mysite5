@@ -48,6 +48,21 @@
 		where no = #{no}
 	]]>
 	</update>
+	
+	<!-- 회원정보 가져오기: 회원가입 아이디 체크 -->
+	<select id="selectById" parameterType="String" resultType="com.javaex.vo.UserVo">
+	<![CDATA[
+		select no,
+			   id,
+	           name,
+	           gender
+		from users
+		where id =#{id} 
+	]]>
+	
+	</select>
+	
+	
 
 </mapper>
 

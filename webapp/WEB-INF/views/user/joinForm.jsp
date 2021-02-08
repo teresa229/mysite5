@@ -1,9 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery/jquery-1.12.4.js"></script>
+
+
 <link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/assets/css/user.css" rel="stylesheet" type="text/css">
 
@@ -43,14 +49,24 @@
 
 			<div id="user">
 				<div id="joinForm">
-					<form action="${pageContext.request.contextPath}/user/join" method="get">
+					<form action="${pageContext.request.contextPath}/user/idcheck" method="get">
 
 						<!-- 아이디 -->
 						<div class="form-group">
 							<label class="form-text" for="input-uid">아이디</label> 
 							<input type="text" id="input-uid" name="id" value="" placeholder="아이디를 입력하세요">
-							<button type="button" id="">중복체크</button>
+							<button type="button" id="btnCheck">중복체크</button>  <!-- submit -->
 						</div>
+						
+						
+						<p>
+							<c:if test="${param.result eq 'can'}">
+								사용할 수 있는 id입니다.
+							</c:if>
+							<c:if test="${param.result eq 'cant'}">
+								사용할 수 없는 id입니다.
+							</c:if>
+						</p>
 
 						<!-- 비밀번호 -->
 						<div class="form-group">
@@ -84,10 +100,11 @@
 							<label for="chk-agree">서비스 약관에 동의합니다.</label> 
 						</div>
 						
-						<!-- 버튼영역 -->
+						
+<!-- 						버튼영역
 		                <div class="button-area">
-		                    <button type="submit" id="btn-submit">회원가입</button>   <!--  button type="submit" -->
-		                </div>
+		                    <button type="submit" id="btn-submit">회원가입</button>    button type="submit"
+		                </div> -->
 						
 					</form>
 				</div>
@@ -105,5 +122,30 @@
 	<!-- //wrap -->
 
 </body>
+<script type="text/javascript">
+	$("#btnCheck").on("click",function(){
+		
+		var uid = $("#input-uid").val();
+		console.log(uid);		
+		
+		//ajax 데이터만 받을래..
+		$.ajax({
+			
+			url : "${pageContext.request.contextPath }/user/idcheck?id="+uid,		
+			type : "post",
+			//contentType : "application/json",
+			//data : {name: ”홍길동"},
+
+			//dataType : "json",
+			success : function(result){
+				/*성공시 처리해야될 코드 작성*/
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+		
+	})
+</script>
 
 </html>

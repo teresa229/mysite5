@@ -77,4 +77,6 @@ public class RboardService {
 	
 		return bVo;
 	}
+	
+
 }
