@@ -48,8 +48,8 @@
             <!-- //content-head -->
 
 			<div id="user">
-				<div id="joinForm">
-					<form action="${pageContext.request.contextPath}/user/idcheck" method="get">
+				<div>
+					<form id="joinForm" action="${pageContext.request.contextPath}/user/join" method="get">
 
 						<!-- 아이디 -->
 						<div class="form-group">
@@ -59,13 +59,14 @@
 						</div>
 						
 						
-						<p>
-							<c:if test="${param.result eq 'can'}">
+						
+						<p id="msg">
+<%-- 						<c:if test="${param.result eq 'can'}">
 								사용할 수 있는 id입니다.
 							</c:if>
 							<c:if test="${param.result eq 'cant'}">
 								사용할 수 없는 id입니다.
-							</c:if>
+							</c:if> --%>
 						</p>
 
 						<!-- 비밀번호 -->
@@ -96,15 +97,15 @@
 						<div class="form-group">
 							<span class="form-text">약관동의</span> 
 							
-							<input type="checkbox" id="chk-agree" value="" name="">
+							<input type="checkbox" id="chk-agree" value="" name="" >  <!-- checked="checked" -->
 							<label for="chk-agree">서비스 약관에 동의합니다.</label> 
 						</div>
 						
 						
-<!-- 						버튼영역
+ 					
 		                <div class="button-area">
-		                    <button type="submit" id="btn-submit">회원가입</button>    button type="submit"
-		                </div> -->
+		                    <button type="submit" id="btn-submit">회원가입</button> 
+		                </div> 
 						
 					</form>
 				</div>
@@ -126,25 +127,77 @@
 	$("#btnCheck").on("click",function(){
 		
 		var uid = $("#input-uid").val();
-		console.log(uid);		
+		//console.log(uid);	
+		//var uid = $("[name='id']").val();
+		
+		var pw = $("input-pass").val()
+		console.log(uid+","+pw);
+		console.log("${pageContext.request.contextPath}/user/idcheck?id="+uid+"password="+pw);
 		
 		//ajax 데이터만 받을래..
-		$.ajax({
+		$.ajax({ //서버 통신 기술
 			
-			url : "${pageContext.request.contextPath }/user/idcheck?id="+uid,		
+			//데이터를 보낼 때
+			url : "${pageContext.request.contextPath}/user/idcheck",	
 			type : "post",
 			//contentType : "application/json",
-			//data : {name: ”홍길동"},
+			data : {id: uid, password: pw}, //url파라미터 값을 만드는 다른 방법, 계속 추가될 수 있다.
 
-			//dataType : "json",
+			//데이터 받을 때 처리하는 값
+			dataType : "text",              /* json 방식도 올수 있음. */
 			success : function(result){
 				/*성공시 처리해야될 코드 작성*/
+				if(result =='can'){
+					console.log("can");
+					$("#msg").html("사용할 수 있는 아이디입니다.");
+				}else{
+					console.log("cant");
+					$("#msg").html("사용할 수 없는 아이디입니다.");
+					console.log(result);
+				}
 			},
 			error : function(XHR, status, error) {
 				console.error(status + " : " + error);
 			}
 		});
 		
+	})
+	
+	//폼을 submit할 때-> form submit되기 전
+	$("#joinForm").on("submit", function(){
+		
+		//패스워드 체크 준비
+		var pw = $("#input-pass").val();
+		console.log(pw.length);
+
+		//동의여부 체크 준비
+		var check = $("#chk-agree").is(":checked"); //false -->체크 안했음
+		//console.log(check);
+		
+		
+		//패스워드 체크
+		if(pw.length < 8){
+			alert("패스워드는 8글자 이상입니다.");
+			return false;
+		}
+		
+		//동의 체크
+		if(!check){
+			alert("약관에 동의해 주세요");
+			return false;
+		}		
+		
+		
+
+		//alert("약관에 동의해 주세요");
+		//동의하기 checkbox 체크되어 있으면 -> submit
+		//동의하기 checkbox 체크되어 있지 않으면 -> 얼랏창"약관에 동의해 주세요."-->submit진행되면 안됨
+
+		return true;
+
+		//패스워드 체크 8글자 이상 통과
+		//패스워드 체크 나머지 alert(패스워드는 8글자 이상입니다.)
+	
 	})
 </script>
 
