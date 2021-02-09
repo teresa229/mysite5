@@ -37,4 +37,33 @@
 		]]>
 	</delete>
 	
+	<!-- 저장되기 전에 key값을 먼저 받은 다음에 insert를 받는다.-->  <!-- keyProperty를 어디에 저장할 것이냐? 저장할 변수, 먼저 받겠다.order="BEFORE" -->
+	<insert id="insertSelectKey" parameterType="com.javaex.vo.GuestVo">
+	<selectKey keyProperty="no" resultType="int" order="BEFORE">  
+		select seq_guestbook_id.nextval from dual
+	</selectKey>
+	
+		<![CDATA[	
+			insert into guestbook
+			values (#{no}, 
+					#{name}, 
+					#{password}, 
+					#{content}, 
+					sysdate
+					)
+		]]>
+	</insert>
+	
+	<!-- 글 1개 가져오기 -->
+	<select id="select" parameterType="int" resultType="com.javaex.vo.GuestVo">
+		<![CDATA[
+			select  no,
+			        name,
+			        content,
+			        to_char(reg_date, 'YYYY-MM-DD') as regDate
+			from guestbook
+			where no = #{no}
+		]]>
+	</select>
+	
 </mapper>

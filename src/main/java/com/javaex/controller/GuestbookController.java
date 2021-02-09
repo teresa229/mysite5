@@ -60,6 +60,13 @@ public class GuestbookController {
 		}else {        //실패
 			return "redirect:/guestbook/deleteForm?result=fail&no="+guestVo.getNo();
 		}
-		
 	}
+	
+	//ajaxlist
+	@RequestMapping(value="/ajaxList", method= {RequestMethod.GET,RequestMethod.POST})
+	public String ajaxList() {
+		System.out.println("[guestbookController]/ajaxList");
+		return "/guestbook/ajaxList";
+	}
+	
 }
