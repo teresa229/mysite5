@@ -30,12 +30,17 @@ public class ApiGuestbookController {
 	//글작성
 	@ResponseBody
 	@RequestMapping(value="/write")
-	public GuestVo write(@ModelAttribute GuestVo guestVo) {
+	public GuestVo write(@ModelAttribute GuestVo guestVo) { //String -> GuestVo
 		System.out.println("[ApiGuestbookController]/write");
 		System.out.println(guestVo.toString()); //toString()적지 않아도 찾게 되어있다.
 		
 		//입력된 vo값을 전달하고, 저장된 vo를 받아야 함.
 		return guestService.writeResultVo(guestVo);
+		
+		//GuestVo vo = guestService.writeResultVo(guestVo);
+		//return vo;
+		
+		
 	}
 	
 	

@@ -59,7 +59,7 @@
 								<td colspan="4"><textarea name="content" cols="72" rows="5"></textarea></td>
 							</tr>
 							<tr class="button-area">
-								<td colspan="4"><button id="btnSubmit" type="submit">등록</button></td>  <!-- id="btnSubmit" --> 
+								<td colspan="4"><button id="btnSubmit" type="submit">등록</button></td>                  <!-- id="btnSubmit" --> 
 							</tr>
 						</tbody>
 						
@@ -67,13 +67,12 @@
 					<!-- //guestWrite -->
 					<input type="hidden" name="action" value="add">
 					
-				<!-- </form>	 -->
+				<!-- </form> -->
 				
 				<div id="guestbooklistArea">
 					<!-- 방명록 글 리스트. 출력영역 -->
 				</div>
-				
-						
+							
 			</div>
 			<!-- //guestbook -->
 		</div>
@@ -101,12 +100,12 @@ $("document").ready(function(){
 		//data : {name: "홍길동"},
 
 		dataType : "json",
-		success : function(guestbookList){
+		success : function(guestbookList){ //guestbookList : 적당한 이름은 만들어 준다.  success에서 받아서 넣어준다.
 			/*성공시 처리해야될 코드 작성*/
 			console.log(guestbookList);
 			
 			for(i=0; i<guestbookList.length; i++){
-				render()
+				render(guestbookList[i]);
 			}
 			
 		},
@@ -116,9 +115,6 @@ $("document").ready(function(){
 	});
 	
 });
-
-
-
 
 
 
@@ -143,8 +139,7 @@ $("#btnSubmit").on("click",function(){
 		data : {name:name, password:password, content:content}, //객체의 필드명: 실제값
 		
 		dataType : "json",
-		success : function(guestVo){
-			/*성공시 처리해야 될 코드 작성*/
+		success : function(guestVo){  /*성공시 처리해야 될 코드 작성*/
 			console.log(guestVo);
 			//{no: 125, name: "부엉이", password: null, content: "1234", regDate: "2021-02-09"}
 			render(guestVo); //게스트북 정보 출력
@@ -178,13 +173,8 @@ $("#btnSubmit").on("click",function(){
 	 str += '</table>';
 	 
 	 $("#guestbooklistArea").prepend(str); /* append는 뒤에 붙는다. */
-	 
  }
  
- 
- 
-
 </script>
-
 
 </html>
