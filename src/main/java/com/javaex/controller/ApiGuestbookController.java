@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.javaex.service.GuestService;
@@ -39,8 +41,35 @@ public class ApiGuestbookController {
 		
 		//GuestVo vo = guestService.writeResultVo(guestVo);
 		//return vo;
+	}
+	
+	//글작성(ajax-json)
+	@ResponseBody
+	@RequestMapping(value="/write2")
+	public GuestVo write2(@RequestBody GuestVo guestVo) { 
+		System.out.println("[ApiGuestbookController]/write2");
+		System.out.println(guestVo); //toString()적지 않아도 찾게 되어있다.
 		
+		//입력된 vo값을 전달하고, 저장된 vo를 받아야 함.
+		return guestService.writeResultVo(guestVo);
 		
+		//GuestVo vo = guestService.writeResultVo(guestVo);
+		//return vo;
+	}
+	
+	
+	
+	//글삭제(ajax)
+	@ResponseBody
+	@RequestMapping(value="/remove" , method= {RequestMethod.GET, RequestMethod.POST})
+	public int remove(@ModelAttribute GuestVo guestVo) {
+		System.out.println("[ApiGuestbookController]/remove");
+		System.out.println(guestVo);
+	
+		int count = guestService.delete(guestVo);
+		System.out.println(count);
+		
+		return count;
 	}
 	
 	
