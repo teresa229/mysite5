@@ -129,202 +129,198 @@
 </body>
 
 <script type="text/javascript">
-//브라우저 준비가 끝났을 때 = DOM이 생성되면 
-$("document").ready(function(){
-	console.log("ready");
-	
-	//리스트 출력
-	fetchList();
-	
-});
-
-//모달창 삭제버튼 클릭할 때 -> 삭제 프로세스
-$("#modalBtnDel").on("click",function(){
-	console.log("모달창 삭제 버튼 클릭");
-	
-	//추가: no: $("#modalNo").val();
-	
-	//추가: 모달창 비밀번호, no는 다른 것으로 사용해서 위로 빼었다.
-	/* var guestVo ={
-		password: $("#modalPassword").val();
-	}; */
-	
-	console.log(guestVo);
-	
-	//모달창 비밀번호, no 수집
-	var password = $("#modalPassword").val();
-	var no = $("#modalNo").val();
-	
-	console.log(password); /* ""삭제 */
-	console.log(no);
-	
-	$.ajax({
+		//브라우저 준비가 끝났을 때 = DOM이 생성되면 
+		$("document").ready(function(){
+			console.log("ready");
 			
-			url : "${pageContext.request.contextPath }/api/guestbook/remove",		
-			type : "post",
-			//contentType : "application/json",
-			data : {password: password, no: no},
-	
-			dataType : "json",
-			success : function(count){
-				/*성공시 처리해야될 코드 작성*/
-				console.log(count);
-				
-				if(count==1){ //삭제 작업
-					//모달창 닫고, 번호에 해당하는 테이블(글)이 화면에서 없어야 한다.
-					$("#delModal").modal("hide");
-				
-					$("#t-"+ no).remove();
-
-				}else{        //count == 0 -->모델창만 닫는다.
-					//모달창 닫기
-					alert("비밀번호가 틀렸습니다.");
-					$("#madalPassword").val("");
-					//$("#delModal").modal("hide");
-				}
-				
-			},
-			error : function(XHR, status, error) {
-				console.error(status + " : " + error);
-			}
-	});
-	
-});
-
-
-
-//삭제 버튼 클릭할 때 --> 비밀번호 입력창 호출
-$("#guestbookListArea").on("click", "a", function(){  //.btnDel ->guestbookListArea 로 영역을 넓힌다. 부모 영역 선택
-	event.preventDefault();   //기본 기능을 막아버린다. event 막아버린다.
-	console.log("삭제버튼 클릭-> 모달창 호출");
-	
-	//비밀번호 필드 초기화
-	$("#modalPassword").val("");
-	
-	
-	//번호 읽어오기 -> this 본인을 출력하기
-	var no = $(this).data("no"); //다른 방법 : var $that = $(this)
-	console.log($(this));
-	console.log($(this).data("no"));
-	console.log(no);                 //소문자만 가능하다. data-no
-	
-	$("#modalNo").val(no);    //파라미터 값 넘기듯이..필요
-		
-	$("#delModal").modal();   //모달창 호출
-});
-
-//방명록 버튼 등록
-$("#btnSubmit").on("click",function(){
- 	console.log("방명록 등록");
-	 
-	//방명록 데이터 등록
-	
-	//추가: 정리
-	var guestVo = {
-			name: $("[name='name']").val(),
-			password: $("[name='pass']").val(),
-			content: $("[name='content']").val()
-	};
- 	//{"name":1, "password":}
-	console.log(guestVo);
-	
-	/*정리 작업*/
-	//var name = $("[name='name']").val(); //값을 가져오는 val.. 자바스크립트에 글자만 담는..var name
-	//var password = $("[name='pass']").val();
-	//var content = $("[name='content']").val();
-	//console.log(name);
-	//console.log(password);
-	//console.log(content);
-	
-	//ajax방식으로 요청(저장)
-	$.ajax({
-		
-		url : "${pageContext.request.contextPath}/api/guestbook/write2",		
-		type : "post",
-		contentType : "application/json",  //JSON.stringify(guestVo)과 짝으로 사용한다.
-		data : JSON.stringify(guestVo), //guestVo,   //정리 작업: {name:name, password:password, content:content}, //객체의 필드명: 실제값
-		
-		dataType : "json",
-		success : function(guestVo){  /*성공시 처리해야 될 코드 작성*/
-			console.log(guestVo);
-			//{no: 125, name: "부엉이", password: null, content: "1234", regDate: "2021-02-09"}
-			render(guestVo, "up"); //게스트북 정보 출력
-			
-			/*입력폼 비우기 */
-			$("[name='name']").val(""); //값을 넣어준다.
-			$("[name='pass']").val("");
-			$("[name='content']").val("");
-		},
-		error : function(XHR, status, error) {
-			console.error(status + " : " + error);
-		}
-	});
- })
-
- //방명록 글 정보 + html 조합하여 화면에 출력
- function render(guestVo, updown){  //up,down에 따라 다르게 실행되게 한다. 
-	 
-	 var str="";
-	 str += '<table id="t-'+guestVo.no+'" class="guestRead">';
-	 str += '   <colgroup>';
-	 str += '           <col style="width: 10%;">';
-	 str += '           <col style="width: 40%;">';
-	 str += '           <col style="width: 40%;">';
-	 str += '           <col style="width: 10%;">';
-	 str += '   </colgroup>';
-	 str += '   <tr>';
-	 str += '       <td>'+ guestVo.no +'</td>';
-	 str += '       <td>'+ guestVo.name +'</td>';
-	 str += '       <td>'+ guestVo.regDate +'</td>';
-	 str += '       <td><a href="" ﻿data-no="'+ guestVo.no +'">[삭제]</a></td>';  /* class는 여러개 와도 된다. data 다음에 소문자만 인식한다. 여러개가 올 수 있다. */
-	 str += '   </tr>';
-	 str += '   <tr>';
-	 str += '      <td colspan=4 class="text-left">방명록 글입니다. 방명록 글입니다.</td>';
-	 str += '   </tr>';
-	 str += '</table>';
-	 
-	 if(updown =="down"){        //리스트 뿌리는 것은 다운
-		 console.log("down");
-		 $("#guestbookListArea").append(str);
-	 }else if(updown =="up"){    //저장할 떄는 상단에 up
-		 $("#guestbookListArea").prepend(str);
-	 }else{
-		 console.log("방향 미지정");
-	 }
-	 
-	// $("#guestbooklistArea").prepend(str);            /* append는 뒤에 붙는다. */
- }
-
-//전체 리스트 출력
-function fetchList(){
-	$.ajax({
-			
-			url : "${pageContext.request.contextPath}/api/guestbook/list",		
-			type : "post",
-			//contentType : "application/json",
-			//data : {name: "홍길동"},
-	
-			dataType : "json",
-			success : function(guestbookList){ //guestbookList : 적당한 이름은 만들어 준다.  success에서 받아서 넣어준다.
-				/*성공시 처리해야될 코드 작성*/
-				console.log(guestbookList);
-				
-				for(i=0; i<guestbookList.length; i++){
-					render(guestbookList[i], "down");   //"up/down --내가 만들어서 정의해 준다. TIP"
-				}
-				
-			},
-			error : function(XHR, status, error) {
-				console.error(status + " : " + error);
-			}
+			fetchList();  //리스트 출력	
 		});
-	
-	
-	
-	
-	
-}
-
+		
+		//모달창 삭제버튼 클릭할 때 -> 삭제 프로세스
+		$("#modalBtnDel").on("click",function(){
+			console.log("모달창 삭제 버튼 클릭");
+			
+			//추가
+			var no = $("#modalNo").val();
+			
+			//추가: 모달창 비밀번호, no는 다른 것으로 사용해서 위로 빼었다.
+			var guestVo ={
+				password: $("#modalPassword").val(),
+				no: $("#modalNo").val()	
+			};
+			console.log(guestVo);
+			
+			//모달창 비밀번호, no 수집
+			//var password = $("#modalPassword").val();
+			//var no = $("#modalNo").val();
+			
+			//console.log(password); 
+			//console.log(no);
+			
+			$.ajax({
+					
+					url : "${pageContext.request.contextPath }/api/guestbook/remove",		
+					type : "post",
+					//contentType : "application/json",
+					data : guestVo, //{password: password, no: no},
+			
+					dataType : "json",
+					success : function(count){  /*성공시 처리해야될 코드 작성*/
+						console.log(count);
+						
+						if(count==1){ //count == 1 -->삭제 작업
+							$("#delModal").modal("hide");  //모달창 닫기
+						
+							$("#t-"+ no).remove();         //번호에 해당하는 테이블(글)이 화면에서 없어야 한다.
+		
+						}else{        //count == 0 -->모델창만 닫는다.
+							
+							alert("비밀번호가 틀렸습니다.");
+							$("#modalPassword").val("");
+							//$("#delModal").modal("hide");  //모달창 닫기
+						}	
+					},
+					error : function(XHR, status, error) {
+						console.error(status + " : " + error);
+					}
+			});
+			
+		});
+		
+		
+		
+		//삭제 버튼 클릭할 때 --> 비밀번호 입력창 호출
+		$("#guestbookListArea").on("click", "a", function(){  //.btnDel ->guestbookListArea 로 영역을 넓힌다. 부모 영역 선택
+			event.preventDefault();   //기본 기능을 막아버린다. event 막아버린다.
+			console.log("삭제버튼 클릭-> 모달창 호출");
+			
+			//비밀번호 필드 초기화
+			$("#modalPassword").val("");
+			
+			
+			//번호 읽어오기 -> this 본인을 출력하기
+			var no = $(this).data("no"); //다른 방법 : var $that = $(this)
+			console.log($(this));
+			console.log($(this).data("no"));
+			console.log(no);                 //소문자만 가능하다. data-no
+			
+			$("#modalNo").val(no);    //파라미터 값 넘기듯이..필요
+				
+			$("#delModal").modal();   //모달창 호출  
+		});
+		
+		//방명록 버튼 등록
+		$("#btnSubmit").on("click",function(){
+		 	console.log("방명록 등록");
+			 
+			//방명록 데이터 등록
+			
+			//추가: 정리
+			var guestVo = {
+					name: $("[name='name']").val(),
+					password: $("[name='pass']").val(),
+					content: $("[name='content']").val()
+			};
+		 	//{"name":1, "password":}
+			console.log(guestVo);
+			
+			/*정리 작업*/
+			//var name = $("[name='name']").val(); //값을 가져오는 val.. 자바스크립트에 글자만 담는..var name
+			//var password = $("[name='pass']").val();
+			//var content = $("[name='content']").val();
+			//console.log(name);
+			//console.log(password);
+			//console.log(content);
+			
+			//ajax방식으로 요청(저장)
+			$.ajax({
+				
+				url : "${pageContext.request.contextPath}/api/guestbook/write2",		
+				type : "post",
+				contentType : "application/json",  //JSON.stringify(guestVo)과 짝으로 사용한다.
+				data : JSON.stringify(guestVo), //guestVo,   //정리 작업: {name:name, password:password, content:content}, //객체의 필드명: 실제값
+				
+				dataType : "json",
+				success : function(guestVo){  /*성공시 처리해야 될 코드 작성*/
+					console.log(guestVo);
+					//{no: 125, name: "부엉이", password: null, content: "1234", regDate: "2021-02-09"}
+					render(guestVo, "up"); //게스트북 정보 출력
+					
+					/*입력폼 비우기 */
+					$("[name='name']").val(""); //값을 넣어준다.
+					$("[name='pass']").val("");
+					$("[name='content']").val("");
+				},
+				error : function(XHR, status, error) {
+					console.error(status + " : " + error);
+				}
+			});
+		 })
+		
+		 //방명록 글 정보 + html 조합하여 화면에 출력
+		 function render(guestVo, updown){  //up,down에 따라 다르게 실행되게 한다. 
+			 
+			 var str="";
+			 str += '<table id="t-'+guestVo.no+'" class="guestRead">';
+			 str += '   <colgroup>';
+			 str += '           <col style="width: 10%;">';
+			 str += '           <col style="width: 40%;">';
+			 str += '           <col style="width: 40%;">';
+			 str += '           <col style="width: 10%;">';
+			 str += '   </colgroup>';
+			 str += '   <tr>';
+			 str += '       <td>'+ guestVo.no +'</td>';
+			 str += '       <td>'+ guestVo.name +'</td>';
+			 str += '       <td>'+ guestVo.regDate +'</td>';
+			 str += '       <td><a href="" data-no="'+ guestVo.no +'">[삭제]</a></td>';  /* class는 여러개 와도 된다. data 다음에 소문자만 인식한다. 여러개가 올 수 있다. */
+			 str += '   </tr>';
+			 str += '   <tr>';
+			 str += '      <td colspan=4 class="text-left">방명록 글입니다. 방명록 글입니다.</td>';
+			 str += '   </tr>';
+			 str += '</table>';
+			 
+			 if(updown =="down"){        //리스트 뿌리는 것은 다운
+				 console.log("down");
+				 $("#guestbookListArea").append(str);
+			 }else if(updown =="up"){    //저장할 떄는 상단에 up
+				 $("#guestbookListArea").prepend(str);
+			 }else{
+				 console.log("방향 미지정");
+			 }
+			 
+			// $("#guestbooklistArea").prepend(str);            /* append는 뒤에 붙는다. */
+		 }
+		
+		//전체 리스트 출력
+		function fetchList(){
+			$.ajax({
+					
+					url : "${pageContext.request.contextPath}/api/guestbook/list",		
+					type : "post",
+					//contentType : "application/json",
+					//data : {name: "홍길동"},
+			
+					dataType : "json",
+					success : function(guestbookList){ //guestbookList : 적당한 이름은 만들어 준다.  success에서 받아서 넣어준다.
+						/*성공시 처리해야될 코드 작성*/
+						console.log(guestbookList);
+						
+						for(i=0; i<guestbookList.length; i++){
+							render(guestbookList[i], "down");   //"up/down --내가 만들어서 정의해 준다. TIP"
+						}
+						
+					},
+					error : function(XHR, status, error) {
+						console.error(status + " : " + error);
+					}
+				});
+			
+			
+			
+			
+			
+		}
+		
 
 </script>
 

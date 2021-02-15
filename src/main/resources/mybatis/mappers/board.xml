@@ -19,6 +19,77 @@
 ]]>
 </select>
 
+<!-- 글 전체 가져오기(검색어) -->
+<select id="selectList2" parameterType="string" resultType="com.javaex.vo.BoardVo">
+	 <![CDATA[
+	 	select bo.no,
+		       us.name,
+		       bo.title,
+		       bo.content,
+		       bo.hit,
+		       bo.reg_date,
+		       bo.user_no as userNo
+		from users us, board bo
+		where us.no = bo.user_no
+	  ]]>
+	  <if test="value !=null and value !=''">
+	      and title like '%' || #{keyword} || '%'
+	  </if>
+      <![CDATA[
+		order by reg_date desc 
+	 ]]>
+</select>
+
+<!-- 글 전체 가져오기(검색어) -->
+<select id="selectList3" parameterType="map" resultType="com.javaex.vo.BoardVo">
+	 <![CDATA[
+	    select r.rnum,
+		       r.no,
+		       r.title,
+		       r.hit,
+		       r.reg_date,
+		       r.userNo,
+		       r.name
+		from (select rownum rnum,
+		             o.no,
+		             o.title,
+		             o.hit,
+		             o.reg_date,
+		             o.userNo,
+		             o.name
+		             from (select bo.no,
+		                          us.name,
+		                          bo.title,
+		                          bo.content,
+		                          bo.hit,
+		                          bo.reg_date,
+		                          bo.user_no as userNo
+		                    from users us, board bo
+		                    where us.no = bo.user_no		                    
+	  ]]>
+	  <if test="value !=null and value !=''">
+	                        and title like '%' || #{keyword} || '%'
+	  </if>
+      <![CDATA[
+				            order by no desc) o ) r
+		where r.rnum >= #{startRNum}
+		and r.rnum <= #{endRNum}
+	 ]]>
+</select>
+
+<!-- 전체 글갯수 가져오기 -->
+<select id="selectTotalCnt" parameterType ="string" resultType="int">
+		<![CDATA[
+				select count(*)
+				from users us, board bo
+				where us.no = bo.user_no
+		 ]]>
+		 <if test="value !=null and value !=''">
+		        and title like '%' || #{keyword} || '%'
+		 </if>
+</select>
+
+
 <!-- 등록 -->
 <insert id="insert" parameterType="com.javaex.vo.BoardVo">
 <![CDATA[
