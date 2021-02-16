@@ -33,6 +33,8 @@ public class BoardDao {
 		//System.out.println("boardList="+boardList);
 		
 		return boardList; //null ->boardList 변경하고 있다.
+		
+		//방법 2 : return sqlSession.selectList("board.selectList2", keyword);
 	}
 	
 	// 글 전체 가져오기(keyword+ 페이징)

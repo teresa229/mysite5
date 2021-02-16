@@ -51,7 +51,7 @@ public class BoardController {
 	@RequestMapping(value="/list3", method= {RequestMethod.GET, RequestMethod.POST})
 	public String list3(@RequestParam(value="keyword", required= false, defaultValue="") String keyword, 
 						@RequestParam(value="crtPage", required= false, defaultValue="1") int crtPage,  //defaultValue= [문자열]로 처리해야 한다. String->int
-						Model model) { //파라미터에 항상 값을 주기로 되어있다. 있을수도 있고 없을수도 있는 상황에 사용하기 위해..ppt06/
+						Model model) {         //파라미터에 항상 값을 주기로 되어있다. 있을수도 있고 없을수도 있는 상황에 사용하기 위해..ppt06/
 		System.out.println("[controller]:list3");
 		//System.out.println("keyword=" + keyword);
 		//System.out.println("crtPage=" + crtPage);

@@ -32,8 +32,8 @@
 		from users us, board bo
 		where us.no = bo.user_no
 	  ]]>
-	  <if test="value !=null and value !=''">
-	      and title like '%' || #{keyword} || '%'
+	  <if test="value !=null and value !=''">  <!-- 키워드가 있을 떄는 포함해라 -->
+	      and title like '%' || #{keyword} || '%'  
 	  </if>
       <![CDATA[
 		order by reg_date desc 
