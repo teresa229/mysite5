@@ -79,5 +79,12 @@ public class GalleryService {
 	    
 	    return dbResult;
 	}
+	
+	//삭제
+	public int remove(int no) {
+		System.out.println("[GalleryService]:remove");
+			
+		return galleryDao.delete(no);
+	}
 
 }

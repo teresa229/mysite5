@@ -25,4 +25,10 @@ public class GalleryDao {
 		
 		return sqlSession.insert("gallery.insert", galleryVo);
 	}
+	
+	public int delete(int no) {
+		System.out.println("[GalleryDao]:delete");
+		
+		return sqlSession.delete("gallery.delete", no);
+	}
 }
